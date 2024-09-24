@@ -1,21 +1,36 @@
-body {
-  background-color: #f4f4f4;
+/* Reset básico para asegurar consistencia entre navegadores */
+* {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
+/* Estilos Globales */
+body {
+  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Contenedor Principal */
 .App {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* Encabezado */
 header {
   text-align: center;
   margin-bottom: 20px;
 }
 
+header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Formulario de Tareas */
 .task-form {
   display: flex;
   flex-wrap: wrap;
@@ -31,6 +46,7 @@ header {
   border: 1px solid #ccc;
   border-radius: 4px;
   flex: 1 1 200px;
+  font-size: 1rem;
 }
 
 .task-form button {
@@ -41,12 +57,15 @@ header {
   border-radius: 4px;
   cursor: pointer;
   flex: 1 1 100px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .task-form button:hover {
   background-color: #218838;
 }
 
+/* Filtros y Búsqueda */
 .filters {
   display: flex;
   justify-content: space-between;
@@ -61,14 +80,16 @@ header {
   border: 1px solid #ccc;
   border-radius: 4px;
   flex: 1 1 200px;
+  font-size: 1rem;
 }
 
-ul {
+/* Lista de Tareas */
+.task-list ul {
   list-style-type: none;
   padding: 0;
 }
 
-li {
+.task-list li {
   background-color: white;
   margin-bottom: 10px;
   padding: 15px;
@@ -77,9 +98,15 @@ li {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-li.completed {
+.task-list li:hover {
+  background-color: #f1f1f1;
+  transform: translateY(-2px);
+}
+
+.task-list li.completed {
   opacity: 0.6;
   text-decoration: line-through;
 }
@@ -88,6 +115,15 @@ li.completed {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.task-info input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.task-info span {
+  font-size: 1rem;
 }
 
 .task-meta {
@@ -101,27 +137,31 @@ li.completed {
   color: white;
   padding: 5px 10px;
   border-radius: 12px;
-  font-size: 0.8em;
+  font-size: 0.8rem;
+  white-space: nowrap;
 }
 
 .due-date {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   color: #dc3545;
 }
 
-li button {
+.task-list li button {
   background-color: #dc3545;
   border: none;
   color: white;
-  padding: 5px 10px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
 }
 
-li button:hover {
+.task-list li button:hover {
   background-color: #c82333;
 }
 
+/* Botón para Eliminar Tareas Completadas */
 .delete-completed {
   background-color: #ffc107;
   border: none;
@@ -130,26 +170,110 @@ li button:hover {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 .delete-completed:hover {
   background-color: #e0a800;
 }
 
-@media (max-width: 600px) {
-
-  .task-form,
-  .filters {
-    flex-direction: column;
-    align-items: stretch;
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+  .App {
+    padding: 15px;
   }
 
-  li {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .task-form input[type="text"],
+  .task-form select,
+  .task-form input[type="date"],
+  .task-form button {
+    flex: 1 1 100%;
+  }
+
+  .filters select,
+  .filters input[type="text"] {
+    flex: 1 1 100%;
+  }
+
+  .task-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .category {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  .due-date {
+    font-size: 0.7rem;
+  }
+
+  .task-list li {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .task-meta {
-    margin-top: 10px;
+  .task-list li button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .delete-completed {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .task-form input[type="text"],
+  .task-form select,
+  .task-form input[type="date"],
+  .task-form button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .filters select,
+  .filters input[type="text"] {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .task-info span {
+    font-size: 0.9rem;
+  }
+
+  .category {
+    font-size: 0.6rem;
+  }
+
+  .due-date {
+    font-size: 0.6rem;
+  }
+
+  .task-list li button {
+    padding: 5px 8px;
+    font-size: 0.7rem;
+  }
+
+  .delete-completed {
+    font-size: 0.8rem;
+    padding: 6px 10px;
   }
 }
